@@ -28,5 +28,12 @@ services:
     depends_on:
       - aggregator
 
+  tests:
+    build: ./tests
+    depends_on:
+      - aggregator
+    environment:
+      - BASE_URL=http://aggregator:8000
+
 volumes:
   pg_data:
