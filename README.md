@@ -40,6 +40,7 @@ Gunakan perintah berikut untuk membersihkan state lama dan membangun sistem dari
 ```bash
 docker compose down -v
 docker compose up --build
+```
 
 ### 3. Akses Layanan
 
@@ -56,10 +57,13 @@ docker compose up --build
 
 ## 🔌 Endpoint API
 
-| Method | Endpoint    | Deskripsi |
-|------|------------|----------|
-| GET  | `/`        | Health check dan informasi readiness service |
-| POST | `/publish` | Endpoint untuk mengirim log (mendukung idempotensi & batch) |
-| GET  | `/stats`   | Menampilkan metrik: `received`, `unique_processed`, `duplicate_dropped` |
-| GET  | `/events`  | Mengambil daftar log unik (mendukung filter `?topic=`) |
+| Method | Endpoint   | Deskripsi                                                               |
+| ------ | ---------- | ----------------------------------------------------------------------- |
+| GET    | `/`        | Health check dan informasi readiness service                            |
+| POST   | `/publish` | Endpoint untuk mengirim log (mendukung idempotensi & batch)             |
+| GET    | `/stats`   | Menampilkan metrik: `received`, `unique_processed`, `duplicate_dropped` |
+| GET    | `/events`  | Mengambil daftar log unik (mendukung filter `?topic=`)                  |
+
+```
+
 ```
