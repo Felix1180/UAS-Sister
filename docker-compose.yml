@@ -1,0 +1,32 @@
+services:
+  storage:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  aggregator:
+    build: ./aggregator
+    depends_on:
+      storage:
+        condition: service_healthy
+    ports:
+      - "8080:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@storage:5432/db
+
+  publisher:
+    build: ./publisher
+    depends_on:
+      - aggregator
+
+volumes:
+  pg_data:
